@@ -1,12 +1,8 @@
-// webpack.config.js (ES модуль)
-import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { fileURLToPath } from 'url';
+// webpack.config.js
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-export default {
+module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
@@ -22,6 +18,9 @@ export default {
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
+        generator: {
+          filename: 'assets/[name][ext]'  // сохранять в dist/assets/
+        }
       },
     ],
   },
@@ -31,11 +30,8 @@ export default {
     }),
   ],
   devServer: {
-    static: {
-      directory: path.join(__dirname, 'dist'),
-    },
-    port: 3001, // Используем 3001 чтобы избежать конфликта портов
+    static: './dist',
+    port: 3003,
     open: true,
-    hot: true,
   },
 };

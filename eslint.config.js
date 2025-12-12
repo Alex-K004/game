@@ -3,53 +3,39 @@ import js from "@eslint/js";
 import globals from "globals";
 
 export default [
-  // Конфигурация для файлов в папке src/ (браузерный JavaScript)
+  // Конфигурация для исходных файлов (ES модули)
   {
     files: ["src/**/*.js"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
       globals: {
-        ...globals.browser  // добавляет document, window, setInterval и т.д.
+        ...globals.browser
       }
     },
     rules: {
       ...js.configs.recommended.rules,
       "no-console": "warn",
       "no-unused-vars": ["error", {
-        "varsIgnorePattern": "^_",  // игнорировать переменные, начинающиеся с _
-        "argsIgnorePattern": "^_"   // игнорировать аргументы, начинающиеся с _
+        "varsIgnorePattern": "^_",
+        "argsIgnorePattern": "^_"
       }]
     }
   },
   
-  // Конфигурация для файлов в папке dist/ (игнорировать скомпилированные файлы)
+  // Конфигурация для конфигурационных файлов (CommonJS)
   {
-    files: ["dist/**/*.js"],
-    languageOptions: {
-      globals: {
-        ...globals.browser
-      }
-    },
-    rules: {
-      "no-undef": "off",      // отключаем проверку undefined переменных
-      "no-unused-vars": "off" // отключаем проверку неиспользуемых переменных
-    }
-  },
-  
-  // Конфигурация для конфигурационных файлов Webpack (Node.js)
-  {
-    files: ["webpack*.js", "**/webpack/*.js"],
+    files: ["webpack.config.js"],
     languageOptions: {
       ecmaVersion: "latest",
-      sourceType: "commonjs",  // важно: CommonJS для Node.js файлов
+      sourceType: "commonjs",  // Важно: CommonJS для Node.js файлов
       globals: {
-        ...globals.node  // добавляет require, module, __dirname и т.д.
+        ...globals.node
       }
     },
     rules: {
       ...js.configs.recommended.rules,
-      "no-console": "warn"
+      "no-console": "off"
     }
   }
 ];
