@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cell.className = 'cell';
     cell.dataset.index = i;
     cell.textContent = i + 1;
-    gameBoard.appendChild(cell);
+    gameBoard.append(cell);
   }
   
   // Создаем персонажа с КАРТИНКОЙ
@@ -55,7 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
   placeCharacterAtRandomPosition();
   
   // Запускаем автоматическое перемещение каждую секунду
-  setInterval(() => {
+let intervalId = setInterval(() => {
     placeCharacterAtRandomPosition();
-  }, 1000);
+}, 1000);
+
+// Когда нужно остановить интервал
+clearInterval(intervalId);
 });
